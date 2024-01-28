@@ -1,6 +1,7 @@
 import 'package:amazone_clone_app/common/widgets/custom_button.dart';
 import 'package:amazone_clone_app/common/widgets/custom_textfield.dart';
 import 'package:amazone_clone_app/constants/global_variables.dart';
+import 'package:amazone_clone_app/features/auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 enum Auth {
@@ -18,6 +19,7 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signup;
+  AuthService authService = AuthService();
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
 
@@ -31,6 +33,15 @@ class _AuthScreenState extends State<AuthScreen> {
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+  }
+
+  signUpUser() {
+    authService.singUpUser(
+      email: _emailController.text,
+      name: _nameController.text,
+      password: _passwordController.text,
+      context: context,
+    );
   }
 
   @override
@@ -95,13 +106,9 @@ class _AuthScreenState extends State<AuthScreen> {
                           color: GlobalVariables.secondaryColor,
                           text: 'Sign Up',
                           onTap: () {
-                            print("Sing up Tap");
                             if (_signUpFormKey.currentState!.validate()) {
-                              print('Form is validated');
+                              signUpUser();
                             }
-                            // if (_signUpFormKey.currentState!.validate()) {
-                            //   signUpUser();
-                            // }
                           },
                         )
                       ],
