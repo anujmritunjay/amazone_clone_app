@@ -78,4 +78,31 @@ class AuthService {
       showSnackbar(context, e.toString());
     }
   }
+
+  void getUserData(BuildContext context) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? authToken = prefs.getString('auth-token');
+
+      if (authToken == null) {
+        prefs.setString('auth-token', '');
+      }
+
+      http.Response userRes = await http.get(Uri.parse('$uri/auth/me'),
+          headers: <String, String>{
+            'Content-Type': 'application/json;charset=UTF-8',
+            'auth-token': authToken!
+          });
+      var isSuccess = jsonDecode(userRes.body)['success'];
+      if (isSuccess) {
+        var userData = jsonEncode(jsonDecode(userRes.body)['data']);
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.setUser(userData);
+      } else {
+        prefs.setString('auth-token', '');
+      }
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+  }
 }
