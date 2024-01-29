@@ -44,6 +44,14 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
+  signInUser() {
+    authService.singInUser(
+      email: _emailController.text,
+      password: _passwordController.text,
+      context: context,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,9 +166,9 @@ class _AuthScreenState extends State<AuthScreen> {
                           text: 'Sign In',
                           color: GlobalVariables.secondaryColor,
                           onTap: () {
-                            // if (_signInFormKey.currentState!.validate()) {
-                            //   signInUser();
-                            // }
+                            if (_signInFormKey.currentState!.validate()) {
+                              signInUser();
+                            }
                           },
                         )
                       ],
