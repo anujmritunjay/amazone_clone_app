@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:amazone_clone_app/common/widgets/bottom_bar.dart';
 import 'package:amazone_clone_app/constants/error_handling.dart';
 import 'package:amazone_clone_app/constants/global_variables.dart';
 import 'package:amazone_clone_app/constants/utils.dart';
@@ -71,7 +72,7 @@ class AuthService {
             print(token);
             await prefs.setString('auth-token', token);
             Navigator.pushNamedAndRemoveUntil(
-                context, HomeScreen.routeName, (route) => false);
+                context, BottomBar.routeName, (route) => false);
           },
           context: context);
     } catch (e) {
