@@ -1,4 +1,5 @@
 import 'package:amazone_clone_app/constants/global_variables.dart';
+import 'package:amazone_clone_app/features/account/screens/account_screen.dart';
 import 'package:amazone_clone_app/features/home/screens/home_screen.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _BottomBarState extends State<BottomBar> {
 
   List<Widget> pages = [
     const HomeScreen(),
-    const Center(child: Text('Account Page')),
+    const AccountScreen(),
     const Center(child: Text('Cart Page')),
   ];
 
@@ -73,26 +74,27 @@ class _BottomBarState extends State<BottomBar> {
               ),
               label: ''),
           BottomNavigationBarItem(
-              icon: Container(
-                width: bottomBarWidth,
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                        width: bottomBarBorderWidth,
-                        color: _page == 2
-                            ? GlobalVariables.selectedNavBarColor
-                            : GlobalVariables.backgroundColor),
-                  ),
-                ),
-                child: const badges.Badge(
-                  badgeContent: Text('2'),
-                  badgeStyle: badges.BadgeStyle(badgeColor: Colors.white),
-                  child: Icon(
-                    Icons.shopping_cart_outlined,
-                  ),
+            icon: Container(
+              width: bottomBarWidth,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                      width: bottomBarBorderWidth,
+                      color: _page == 2
+                          ? GlobalVariables.selectedNavBarColor
+                          : GlobalVariables.backgroundColor),
                 ),
               ),
-              label: ''),
+              child: const badges.Badge(
+                badgeContent: Text('2'),
+                badgeStyle: badges.BadgeStyle(badgeColor: Colors.white),
+                child: Icon(
+                  Icons.shopping_cart_outlined,
+                ),
+              ),
+            ),
+            label: '',
+          ),
         ],
       ),
     );
