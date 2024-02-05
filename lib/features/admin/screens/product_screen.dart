@@ -1,4 +1,4 @@
-import 'package:amazone_clone_app/constants/global_variables.dart';
+import 'package:amazone_clone_app/features/admin/screens/add_product_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProductScreen extends StatefulWidget {
@@ -9,6 +9,10 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+  void navigateToAddProduct() {
+    Navigator.pushNamed(context, AddProductScreen.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,9 +28,7 @@ class _ProductScreenState extends State<ProductScreen> {
           foregroundColor: Colors.black,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-          onPressed: () {
-            print('Floting Icon button Pressed');
-          },
+          onPressed: navigateToAddProduct,
           child: const Icon(Icons.add),
         ),
       ),
