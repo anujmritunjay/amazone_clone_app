@@ -4,6 +4,7 @@ import 'package:amazone_clone_app/common/widgets/custom_button.dart';
 import 'package:amazone_clone_app/common/widgets/custom_textfield.dart';
 import 'package:amazone_clone_app/constants/global_variables.dart';
 import 'package:amazone_clone_app/constants/utils.dart';
+import 'package:amazone_clone_app/features/admin/services/admin_service.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
+  final AdminService adminService = AdminService();
+  final _addProductFromKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -48,6 +51,21 @@ class _AddProductScreenState extends State<AddProductScreen> {
     });
   }
 
+  void sellProduct() {
+    print('-------------');
+    if (_addProductFromKey.currentState!.validate() || images.isNotEmpty) {
+      adminService.sellProduct(
+        context: context,
+        name: productNameController.text,
+        description: descriptionController.text,
+        price: double.parse(priceController.text),
+        quantity: double.parse(quantityController.text),
+        category: category,
+        images: images,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +84,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: _addProductFromKey,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
@@ -167,9 +186,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(height: 10),
                 CustomButton(
                   text: 'Sell',
-                  onTap: () {
-                    print('Sell button Pressed');
-                  },
+                  onTap: sellProduct,
                   color: GlobalVariables.secondaryColor,
                 ),
               ],
