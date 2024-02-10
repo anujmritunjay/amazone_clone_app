@@ -52,7 +52,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   void sellProduct() {
-    print('-------------');
     if (_addProductFromKey.currentState!.validate() || images.isNotEmpty) {
       adminService.sellProduct(
         context: context,
