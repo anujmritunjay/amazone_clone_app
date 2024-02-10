@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 
 class AdminService {
   void sellProduct({
+    required VoidCallback onSuccess,
     required BuildContext context,
     required String name,
     required String description,
@@ -56,8 +57,7 @@ class AdminService {
         response: res,
         context: context,
         onSuccess: () {
-          showSnackbar(context, "Product added successfully.");
-          Navigator.pop(context);
+          onSuccess();
         },
       );
     } catch (e) {
@@ -94,5 +94,28 @@ class AdminService {
       showSnackbar(context, e.toString());
     }
     return productList;
+  }
+
+  void deleteProduct(
+      BuildContext context, Product product, VoidCallback onSuccess) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    try {
+      http.Response res = await http.delete(
+          Uri.parse('$uri/admin/delete-products/${product.id}'),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'auth-token': userProvider.user.token,
+          });
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          onSuccess();
+        },
+      );
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
   }
 }

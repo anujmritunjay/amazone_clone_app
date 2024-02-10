@@ -15,13 +15,25 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   List<Product>? products;
   AdminService adminService = AdminService();
+
   void navigateToAddProduct() {
-    Navigator.pushNamed(context, AddProductScreen.routeName);
+    Navigator.pushNamed(context, AddProductScreen.routeName).then((value) {
+      if (value == true) {
+        fetchAllProducts();
+      }
+    });
   }
 
   void fetchAllProducts() async {
     products = await adminService.fetchAllProducts(context);
     setState(() {});
+  }
+
+  void deleteProduct(productData, index) {
+    adminService.deleteProduct(context, productData, () {
+      products!.removeAt(index);
+      setState(() {});
+    });
   }
 
   @override
@@ -60,9 +72,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {
-                            print(index);
-                          },
+                          onPressed: () => deleteProduct(productData, index),
                           icon: const Icon(
                             Icons.delete_outline,
                           ),

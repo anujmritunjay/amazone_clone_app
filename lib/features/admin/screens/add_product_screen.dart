@@ -51,9 +51,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
     });
   }
 
+  void productAdded() {
+    showSnackbar(context, "Product added successfully.");
+    Navigator.pop(context, true);
+  }
+
   void sellProduct() {
     if (_addProductFromKey.currentState!.validate() || images.isNotEmpty) {
       adminService.sellProduct(
+        onSuccess: productAdded,
         context: context,
         name: productNameController.text,
         description: descriptionController.text,
