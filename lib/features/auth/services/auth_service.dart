@@ -69,7 +69,6 @@ class AuthService {
                 await SharedPreferences.getInstance();
             Provider.of<UserProvider>(context, listen: false).setUser(userData);
             var token = jsonDecode(userData)['token'];
-            print(token);
             await prefs.setString('auth-token', token);
             Navigator.pushNamedAndRemoveUntil(
                 context, BottomBar.routeName, (route) => false);

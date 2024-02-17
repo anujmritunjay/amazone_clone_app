@@ -38,7 +38,6 @@ class SearchServices {
             }
           },
           context: context);
-      print(res.body);
     } catch (e) {
       showSnackbar(context, e.toString());
     }
