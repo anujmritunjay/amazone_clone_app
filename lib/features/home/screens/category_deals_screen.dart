@@ -1,6 +1,7 @@
 import 'package:amazone_clone_app/common/widgets/loader.dart';
 import 'package:amazone_clone_app/constants/global_variables.dart';
 import 'package:amazone_clone_app/features/home/services/home_services.dart';
+import 'package:amazone_clone_app/features/product_details/screens/product_details_screen.dart';
 import 'package:amazone_clone_app/model/product.dart';
 import 'package:flutter/material.dart';
 
@@ -79,7 +80,13 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                     itemBuilder: (context, index) {
                       final product = productList![index];
                       return GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            ProductDetailScreen.routeName,
+                            arguments: product,
+                          );
+                        },
                         child: Column(
                           children: [
                             SizedBox(
