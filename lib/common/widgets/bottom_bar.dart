@@ -1,8 +1,10 @@
 import 'package:amazone_clone_app/constants/global_variables.dart';
 import 'package:amazone_clone_app/features/account/screens/account_screen.dart';
 import 'package:amazone_clone_app/features/home/screens/home_screen.dart';
+import 'package:amazone_clone_app/providers/user_provider.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BottomBar extends StatefulWidget {
   static const String routeName = '/actual-home';
@@ -32,6 +34,7 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    final userCartLen = context.watch<UserProvider>().user.cart.length;
     return Scaffold(
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
@@ -85,10 +88,10 @@ class _BottomBarState extends State<BottomBar> {
                           : GlobalVariables.backgroundColor),
                 ),
               ),
-              child: const badges.Badge(
-                badgeContent: Text('2'),
-                badgeStyle: badges.BadgeStyle(badgeColor: Colors.white),
-                child: Icon(
+              child: badges.Badge(
+                badgeContent: Text(userCartLen.toString()),
+                badgeStyle: const badges.BadgeStyle(badgeColor: Colors.white),
+                child: const Icon(
                   Icons.shopping_cart_outlined,
                 ),
               ),

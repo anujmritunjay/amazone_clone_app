@@ -3,7 +3,6 @@ import 'package:amazone_clone_app/constants/global_variables.dart';
 import 'package:amazone_clone_app/features/admin/screens/admin_screen.dart';
 import 'package:amazone_clone_app/features/auth/screens/auth_screen.dart';
 import 'package:amazone_clone_app/features/auth/services/auth_service.dart';
-import 'package:amazone_clone_app/features/home/screens/home_screen.dart';
 import 'package:amazone_clone_app/providers/user_provider.dart';
 import 'package:amazone_clone_app/router.dart';
 import 'package:flutter/material.dart';
